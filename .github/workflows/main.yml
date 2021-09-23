@@ -30,14 +30,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Get current timestamp
-        id: current_timestamp
-        run: echo "TSNOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          echo .... $TSNOW ..............
+          echo .... $(date +'%Y-%m-%dT%H:%M:%S') ..............
           echo Hello ${{ github.event.inputs.name }}
 
       # Runs a set of commands using the runners shell
