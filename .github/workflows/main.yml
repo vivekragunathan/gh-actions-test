@@ -1,44 +1,35 @@
-# This is a basic workflow to help you get started with Actions
 
 name: CI
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
+on:                                 # Controls when the workflow will run
+  push:                             # Triggers the workflow on push or pull request events but only for the main branch
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_dispatch:                # Allows you to run this workflow manually from the Actions tab
     inputs:
-      username:
-        description: 'Person to greet' # Friendly description to be shown in the UI instead of 'name'
-        default: 'World'               # Default value if no value is explicitly provided
-        required: true                 # Input has to be provided for the workflow to run
+      whoareyou:
+        description: 'Username'
+        required: true
+        default: 'Mr.X'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+jobs:                               # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  build:                            # This workflow contains a single job called "build"
+    runs-on: ubuntu-latest          # The type of runner that the job will run on
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    steps:                          # Steps represent a sequence of tasks that will be executed as part of the job
+      - uses: actions/checkout@v2   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Step 1 - Prepare the build environment
+        env:
+          WHOAREU: ${{ github.event.inputs.whoareyou }}
         run: |
           echo .... $(date +'%Y-%m-%dT%H:%M:%S') ..............
-          echo "Hello ${{ github.event.inputs }}"
-          echo "Hello ${{ github.event.inputs.username }}"
+          echo "Hello $WHOAREU"
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Step 2 - Compile all sources
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
