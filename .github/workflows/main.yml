@@ -30,9 +30,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Get current timestamp
+        id: current_timestamp
+        run: echo "CURRENT_TS::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: |
+          echo .... $CURRENT_TS ..............
+          echo Hello ${{ github.event.inputs.name }}
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
