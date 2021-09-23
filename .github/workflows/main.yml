@@ -32,12 +32,12 @@ jobs:
 
       - name: Get current timestamp
         id: current_timestamp
-        run: echo "CURRENT_TS::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+        run: echo "TSNOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          echo .... $CURRENT_TS ..............
+          echo .... $TSNOW ..............
           echo Hello ${{ github.event.inputs.name }}
 
       # Runs a set of commands using the runners shell
