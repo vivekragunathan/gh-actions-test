@@ -28,6 +28,7 @@ jobs:                               # A workflow run is made up of one or more j
           echo .... $(date +'%Y-%m-%dT%H:%M:%S') ..............
           echo "Hello ${{ github.event.inputs.whoareyou }} (env_value: $WHOAREU)"
           echo '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' | gh auth login --with-token
+          gh workflow view
 
       # Runs a set of commands using the runners shell
       - name: Step 2 - Compile all sources
