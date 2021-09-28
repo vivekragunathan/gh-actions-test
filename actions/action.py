@@ -2,4 +2,5 @@
 
 from datetime import datetime
 
-print(f"Ahaa! It is working! {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}")
+ts = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+print(f"Ahaa! It is working! {ts}")
