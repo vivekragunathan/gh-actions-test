@@ -1,4 +1,4 @@
-#!/user/bin/env bash
+#!/usr/bin/env bash
 
 gh_sha="${1:?git sha not specified}"
 
