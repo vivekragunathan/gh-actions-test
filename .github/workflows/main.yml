@@ -33,7 +33,6 @@ jobs:                               # A workflow run is made up of one or more j
 
           echo '>>> Fetching git diff (${{ github.sha }})'
           git diff-tree --no-commit-id --patch-with-raw -r ${{ github.sha }}
-          ls -l actions/action.py
           python actions/action.py
 
           # echo '>>> List workflows'
