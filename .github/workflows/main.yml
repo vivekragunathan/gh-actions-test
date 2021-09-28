@@ -2,7 +2,7 @@
 name: CI
 
 on:                                 # Controls when the workflow will run
-  push:                             # Triggers the workflow on push or pull request events but only for the main branch
+  push:                             # Triggers the workflow on push/pull request events but only for the main branch
     branches: [ main ]
   pull_request:
     branches: [ main ]
@@ -23,14 +23,15 @@ jobs:                               # A workflow run is made up of one or more j
 
       - name: Step 1 - Prepare the build environment
         env:
-          WHOAREU: ${{ github.event.inputs.whoareyou }}
+          WHORU: ${{ github.event.inputs.whoareyou }}
         run: |
-          python actions/init.py ${{ github.event.inputs.whoareyou }}
+        python actions/init.py ${{ github.event.inputs.whoareyou }}
 
       # Runs a set of commands using the runners shell
       - name: Step 2 - Compile all sources
+        env:
+          WHORU: ${{ github.event.inputs.whoareyou }}
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo Add other actions to build, test, and deploy your project.
           ./actions/git.sh ${{ github.sha }}
           python actions/run.py
