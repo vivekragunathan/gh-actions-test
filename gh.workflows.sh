@@ -10,7 +10,7 @@
 #set -o errexit
 #set -o pipefail
 
-function jqscript () {
+function jq_script () {
     cat <<EOF
       def symbol:
         sub("skipped"; "SKIP") |
@@ -34,9 +34,9 @@ EOF
 
 function parse_wf_run_id () {
   # NOTE: The column where id is expected to be depends on
-  # on the order decided in the function `jqscript`. Currently,
+  # on the order decided in the function `jq_script`. Currently,
   # id is the first column
-  echo "$(cut -f 1 <<< "$1")"
+  cut -f 1 <<< "$1"
 }
 
 function gh.wfs.delete.run () {
@@ -46,13 +46,15 @@ function gh.wfs.delete.run () {
   id=${2:?Workflow run id not specified}
   url="/repos/${repo}/actions/runs/${id}"
 
-  echo q | gh api -X DELETE "${url}"
-  [[ $? = 0 ]] && result="OK!" || result="BAD"
+  # echo q | gh api -X DELETE "${url}"
+  # [[ $? = 0 ]] && result="OK!" || result="BAD"
+
+  echo q | gh api -X DELETE "${url}" && result="OK" || result="BAD!"
   echo >&2  "Workflow run id: ${id} --> ${result}"
 }
 
 function gh.wfs.list.run_ids () {
-  gh.list_wf_runs vivekragunathan/gh-actions-test | while read line; do
+  gh.list_wf_runs vivekragunathan/gh-actions-test | while read -r line; do
     cut -f1 <<< "${line}"
   done
 }
@@ -74,14 +76,12 @@ function gh.wfs.list () {
 
   repo=${1:?No owner/repo specified}
 
-  # gh api --paginate "/repos/$repo/actions/runs" | jq -r -f <(jqscript) # | fzf --multi
+  # gh api --paginate "/repos/$repo/actions/runs" | jq -r -f <(jq_script) # | fzf --multi
   gh api --paginate "/repos/$repo/actions/runs"  | jq -r '.workflow_runs[] | [.id,.conclusion,.created_at,.event,.name] | @tsv'
 }
 
 function gh.wfs.delete () {
-  local repo
+  local repo=${1:?No owner/repo specified}
 
-  repo=${1:?No owner/repo specified}
-
-  gh.list_wf_runs "${repo}" | delete_wf_runs "${repo}"
+  gh.wfs.list "${repo}" | delete_wf_runs "${repo}"
 }
