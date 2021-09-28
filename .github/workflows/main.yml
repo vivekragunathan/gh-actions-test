@@ -32,7 +32,6 @@ jobs:                               # A workflow run is made up of one or more j
           echo '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' | gh auth login --with-token
 
           echo '>>> Fetching git diff (${{ github.sha }})'
-          git config user.name
           git diff-tree --no-commit-id --patch-with-raw -r ${{ github.rsa }}
 
           # echo '>>> List workflows'
