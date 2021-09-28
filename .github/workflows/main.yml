@@ -2,7 +2,7 @@
 name: CI
 
 on:                                 # Controls when the workflow will run
-  push:                             # Triggers the workflow on push or pull request events but only for the main branch
+  push:                             # Triggers the workflow on push/pull request events but only for the main branch
     branches: [ main ]
   pull_request:
     branches: [ main ]
@@ -34,7 +34,7 @@ jobs:                               # A workflow run is made up of one or more j
           echo '>>> Fetching git diff (${{ github.sha }})'
           git diff-tree --no-commit-id --patch-with-raw -r ${{ github.sha }}
           ls -l actions/action.py
-          actions/action.py
+          python actions/action.py
 
           # echo '>>> List workflows'
           # gh workflow view CI
