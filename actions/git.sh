@@ -9,6 +9,7 @@ echo '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' | gh auth login --with-token
 
 banner "Fetching git diff (${gh_sha})"
 git diff-tree --no-commit-id --patch-with-raw -r "${gh_sha}"
+echo "GitDiffTree Result: $?"
 
 # echo '>>> List workflows'
 # gh workflow view CI
