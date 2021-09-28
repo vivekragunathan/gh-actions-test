@@ -3,7 +3,7 @@ import os
 from utils import *
 
 print(
-    f"""{banner(Identification Header)}
+    f"""{banner('Identification Header')}
     Hello {who_are_u} * {ts_now()}
     Env(WHORU): {os.environ['WHORU']}
     """
