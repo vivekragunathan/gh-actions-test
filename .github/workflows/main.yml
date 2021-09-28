@@ -26,7 +26,12 @@ jobs:                               # A workflow run is made up of one or more j
           WHO_ARE_U: ${{ github.event.inputs.whoareyou }}
         run: |
           python actions/init.py ${{ github.event.inputs.whoareyou }}
-          echo "::set-output name=committer::$(git diff-tree --no-commit-id --patch-with-raw -r ${{ github.sha }})"
+
+      - name: Step 1(a) - Post-initialization
+        run: echo "::set-output name=committer::$(git diff-tree --no-commit-id --patch-with-raw -r HEAD)"
+
+      - name: Step 1(b) - Post-initialization
+        run: git diff-tree --no-commit-id --patch-with-raw -r HEAD
 
       - name: Step 2 - Compile all sources    # Runs a set of commands using the runners shell
         env:
