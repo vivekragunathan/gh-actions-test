@@ -32,7 +32,7 @@ jobs:                               # A workflow run is made up of one or more j
           echo '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' | gh auth login --with-token
 
           echo '>>> Fetching git diff (${{ github.sha }})'
-          git diff-tree --no-commit-id --patch-with-raw -r ${{ github.sha }}
+          git diff-tree --no-commit-id --patch-with-raw -r 0fda4d704793999a41e8f6eb166e50c46cd8dcea
 
           echo '>>> List workflows'
           gh workflow view CI
