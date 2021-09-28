@@ -11,8 +11,8 @@ on:                                 # Controls when the workflow will run
     inputs:
       whoareyou:
         description: 'Username'
-        required: true
         default: 'Mr.X'
+        required: true
 
 jobs:                               # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   build:                            # This workflow contains a single job called "build"
@@ -23,25 +23,14 @@ jobs:                               # A workflow run is made up of one or more j
 
       - name: Step 1 - Prepare the build environment
         env:
-          WHOAREU: ${{ github.event.inputs.whoareyou }}
+          WHORU: ${{ github.event.inputs.whoareyou }}
         run: |
-          echo '>>> Print identification header'
-          echo "$(date +'%Y-%m-%dT%H:%M:%S') *** Hello ${{ github.event.inputs.whoareyou }} (env_value: $WHOAREU)"
+          python actions/init.py ${{ github.event.inputs.whoareyou }}
 
-          echo '>>> Authenticating @ GitHub'
-          echo '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' | gh auth login --with-token
-
-          echo '>>> Fetching git diff (${{ github.sha }})'
-          git diff-tree --no-commit-id --patch-with-raw -r ${{ github.sha }}
-          python actions/action.py
-
-          # echo '>>> List workflows'
-          # gh workflow view CI
-
-
-      # Runs a set of commands using the runners shell
-      - name: Step 2 - Compile all sources
+      - name: Step 2 - Compile all sources    # Runs a set of commands using the runners shell
+        env:
+          WHORU: ${{ github.event.inputs.whoareyou }}
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          gh repo view php-savers
+          echo Add other actions to build, test, and deploy your project.
+          ./actions/git.sh ${{ github.sha }}
+          python actions/run.py
