@@ -25,24 +25,12 @@ jobs:                               # A workflow run is made up of one or more j
         env:
           WHOAREU: ${{ github.event.inputs.whoareyou }}
         run: |
-          echo '>>> Print identification header'
-          echo "$(date +'%Y-%m-%dT%H:%M:%S') *** Hello ${{ github.event.inputs.whoareyou }} (env_value: $WHOAREU)"
-
-          echo '>>> Authenticating @ GitHub'
-          echo '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' | gh auth login --with-token
-
-          echo '>>> Fetching git diff (${{ github.sha }})'
-          git diff-tree --no-commit-id --patch-with-raw -r ${{ github.sha }}
-          ls -l actions/action.py
-          actions/action.py
-
-          # echo '>>> List workflows'
-          # gh workflow view CI
-
+          python actions/init.py ${{ github.event.inputs.whoareyou }}
 
       # Runs a set of commands using the runners shell
       - name: Step 2 - Compile all sources
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          gh repo view php-savers
+          ./actions/git.sh ${{ github.sha }}
+          python actions/run.py
