@@ -2,4 +2,4 @@
 
 from utils import *
 
-print(f"Ahaa! It is working! {ts_now()}")
+print(f"Aha! It is working! {ts_now()}")
