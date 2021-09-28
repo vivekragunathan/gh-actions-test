@@ -13,7 +13,11 @@ print_cmd_output(f"echo {__GH_TOKEN__} | gh auth login --with-token", 'Authentic
 
 print_cmd_output("gh repo view php-savers")
 
-print_cmd_output(f"git diff-tree --no-commit-id --patch-with-raw -r {gh_sha}", f"Fetching git diff ({gh_sha})")
+print_cmd_output(
+    f"git diff-tree --no-commit-id --patch-with-raw -r {gh_sha}",
+    f"Fetching git diff ({gh_sha})",
+    also_include_stderr=True
+)
 
 # echo '>>> List workflows'
 # gh workflow view CI
