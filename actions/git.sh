@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source "utils.sh"
+source "actions/utils.sh"
 
 gh_sha="${1:?git sha not specified}"
 
