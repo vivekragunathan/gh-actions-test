@@ -25,10 +25,16 @@ jobs:                               # A workflow run is made up of one or more j
         env:
           WHOAREU: ${{ github.event.inputs.whoareyou }}
         run: |
-          echo .... $(date +'%Y-%m-%dT%H:%M:%S') ..............
-          echo "Hello ${{ github.event.inputs.whoareyou }} (env_value: $WHOAREU)"
+          echo '>>> Print identification header'
+          echo "$(date +'%Y-%m-%dT%H:%M:%S') *** Hello ${{ github.event.inputs.whoareyou }} (env_value: $WHOAREU)"
+
+          echo '>>> Authenticating @ GitHub'
           echo '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' | gh auth login --with-token
+
+          echo '>>> Fetching git diff ...'
           git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+
+          echo '>>> List workflows'
           gh workflow view CI
 
 
