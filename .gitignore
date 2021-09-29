@@ -1,2 +1,9 @@
+.idea
+.vscode
+
+target
+__pycache__
+
 *.class
 *.log
+
