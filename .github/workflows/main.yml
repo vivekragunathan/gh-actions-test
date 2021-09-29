@@ -20,6 +20,8 @@ jobs:                               # A workflow run is made up of one or more j
 
     steps:                          # Steps represent a sequence of tasks that will be executed as part of the job
       - uses: actions/checkout@v2   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        with:
+          fetch-depth: 5
 
       - name: Step 1 - Prepare the build environment
         env:
